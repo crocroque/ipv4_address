@@ -6,7 +6,7 @@ def bin_to_int(value: str) -> int:
     return nbr
 
 
-def int_to_bin(value: int, bits: int = None) -> str:
+def int_to_bin(value: int, bits: int = None, print_debug: bool = False) -> str:
     if bits is not None and (value >= 2**bits or value < 0):
         raise Exception(f"la valeur est sur {bits} bits donc sur [0 ; {2 ** bits - 1}]")
 
@@ -14,8 +14,9 @@ def int_to_bin(value: int, bits: int = None) -> str:
 
     binaire = []
     while dividende >= 1:
-
         reste = dividende % 2
+
+        print(f"{dividende} // 2 = {dividende // 2} | reste : {reste}") if print_debug else None
         dividende //= 2
 
         binaire.append(str(reste))
@@ -29,8 +30,8 @@ def int_to_bin(value: int, bits: int = None) -> str:
     return binaire
 
 
-def address_to_bin(address : str) -> list[str, str, str, str]:
-    return [int_to_bin(int(i), bits=8) for i in address.split(".")]
+def address_to_bin(address : str, bits: int = 8) -> list[str, str, str, str]:
+    return [int_to_bin(int(i), bits=bits) for i in address.split(".")]
 
 
 def bin_address_to_str(address: list[str, str, str, str]) -> str:
@@ -60,9 +61,9 @@ def get_network_address(ip : list, mask : list) -> list[str, str, str, str]:
 def get_broadcast_address(network_adress: list[str, str, str, str], mask: list[str, str, str, str]) -> list[str, str, str, str]:
     broadcast_address = []
 
-    for i in range(0, 4):
+    for i in range(0, len(network_adress)):
         octet = ""
-        for j in range(0, 8):
+        for j in range(0, len(mask[i])):
             if mask[i][j] == "1":
                 octet += network_adress[i][j]
             else:
@@ -89,7 +90,7 @@ def is_ip_address_valid(address: list[str, str, str, str], network_address: list
 
 if __name__ == "__main__":
     ip_bin = address_to_bin("192.168.10.10")
-    mask_bin = address_to_bin("255.255.0.0") # can break with not regular CIDR
+    mask_bin = address_to_bin("255.255.0.0")
 
     cidr = get_cidr(mask_bin)
 
