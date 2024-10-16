@@ -90,7 +90,7 @@ def is_ip_address_valid(address: list[str, str, str, str], network_address: list
 
 if __name__ == "__main__":
     ip_bin = address_to_bin("192.168.10.10")
-    mask_bin = address_to_bin("255.255.0.0")
+    mask_bin = address_to_bin("255.255.0.0") # break with not regular mask 
 
     cidr = get_cidr(mask_bin)
 
