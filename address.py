@@ -86,23 +86,3 @@ def sum_address(address: list[str, str, str, str]) -> int:
 
 def is_ip_address_valid(address: list[str, str, str, str], network_address: list[str, str, str, str], broadcast_address: list[str, str, str, str]) -> bool:
     return sum_address(network_address) < sum_address(address) < sum_address(broadcast_address)
-
-
-if __name__ == "__main__":
-    ip_bin = address_to_bin("192.168.10.10")
-    mask_bin = address_to_bin("255.255.0.0") # break with not regular mask 
-
-    cidr = get_cidr(mask_bin)
-
-    network_address_bin = get_network_address(ip_bin, mask_bin)
-
-    broadcast_address_bin = get_broadcast_address(network_address_bin, mask_bin)
-
-    print(f"@ ip       : {ip_bin}/{cidr}  ({bin_address_to_str(ip_bin)})")
-    print(f"@ mask     : {mask_bin}     ({bin_address_to_str(mask_bin)})")
-    print(f"@ reseau   : {network_address_bin}     ({bin_address_to_str(network_address_bin)})")
-    print(f"@ broadcast: {broadcast_address_bin}     ({bin_address_to_str(broadcast_address_bin)})")
-
-    ip_test = "192.168.0.0"
-    print("            ",address_to_bin(ip_test), "   ", f"({ip_test})")
-    print(is_ip_address_valid(address=address_to_bin(ip_test), network_address=network_address_bin, broadcast_address=broadcast_address_bin))
