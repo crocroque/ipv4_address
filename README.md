@@ -2,6 +2,8 @@
 ## Example usage
 ```python
 
+from address import *
+
 if __name__ == "__main__":
     ip_bin = address_to_bin("192.168.10.10")
     print(ip_bin) # output : ['11000000', '10101000', '00001010', '00001010']
