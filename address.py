@@ -6,7 +6,7 @@ def bin_to_int(value: str) -> int:
     return nbr
 
 
-def int_to_bin(value: int, bits: int = None, print_debug: bool = False) -> str:
+def int_to_bin(value: int, bits: int = None) -> str:
     if bits is not None and (value >= 2**bits or value < 0):
         raise Exception(f"la valeur est sur {bits} bits donc sur [0 ; {2 ** bits - 1}]")
 
@@ -15,8 +15,6 @@ def int_to_bin(value: int, bits: int = None, print_debug: bool = False) -> str:
     binaire = []
     while dividende >= 1:
         reste = dividende % 2
-
-        print(f"{dividende} // 2 = {dividende // 2} | reste : {reste}") if print_debug else None
         dividende //= 2
 
         binaire.append(str(reste))
